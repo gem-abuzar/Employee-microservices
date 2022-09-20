@@ -43,8 +43,7 @@ public class employeeserviceimpl implements employeeservice{
             emp.setName(employee.getName());
             emp.setDesignation(employee.getDesignation());
             emp.setAddress(employee.getAddress());
-//            emp.setDept_id(employee.getDept_id());
-            emp.setPhno(employee.getPhno());
+            emp.setPhNo(employee.getPhNo());
             return repository.save(emp);
         }
         return null;

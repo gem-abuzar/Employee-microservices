@@ -33,13 +33,13 @@ public class addressserviceimpl implements addressservice{
 
     @Override
     public Address updateAddress(Address address) {
-        Optional<Address> addDb = repository.findById(address.getAddress_id());
+        Optional<Address> addDb = repository.findById(address.getAddressId());
         if(addDb.isPresent()) {
             Address add = addDb.get();
-            add.setAddress_id(address.getAddress_id());
+            add.setAddressId(address.getAddressId());
             add.setAddress(address.getAddress());
             add.setCity(address.getCity());
-            add.setPincode(address.getPincode());
+            add.setPinCode(address.getPinCode());
             return repository.save(add);
         }
         return null;

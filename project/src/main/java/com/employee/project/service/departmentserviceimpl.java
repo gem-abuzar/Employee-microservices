@@ -37,16 +37,16 @@ public class departmentserviceimpl implements departmentservice  {
 
     @Override
     public Department updateDepartment(Department department) {
-        Optional<Department> DeptDb = repository.findById(department.getDeptid());
+        Optional<Department> DeptDb = repository.findById(department.getDeptId());
         if(DeptDb.isPresent()) {
             Department dep = DeptDb.get();
-            dep.setDeptid(department.getDeptid());
-            dep.setDept_name(department.getDept_name());
-            dep.setDept_desc(department.getDept_desc());
-            dep.setCreate_date(department.getCreate_date());
-            dep.setCreated_by(department.getCreated_by());
-            dep.setUpdate_date(department.getUpdate_date());
-            dep.setUpdated_by(department.getUpdated_by());
+            dep.setDeptId(department.getDeptId());
+            dep.setDeptName(department.getDeptName());
+            dep.setDeptDesc(department.getDeptDesc());
+            dep.setCreateDate(department.getCreateDate());
+            dep.setCreatedBy(department.getCreatedBy());
+            dep.setUpdateDate(department.getUpdateDate());
+            dep.setUpdatedBy(department.getUpdatedBy());
             return repository.save(dep);
         }
         return null;    }

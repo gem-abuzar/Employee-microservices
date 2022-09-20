@@ -1,5 +1,8 @@
 package com.employee.project.model;
-import lombok.*;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -10,8 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Where(clause = "is_deleted=false")
 @Table(name="employee")
@@ -24,9 +26,9 @@ public class Employee {
     @NotBlank(message = "designation should be there")
     private String designation;
     @NotBlank(message = "phone number should be there")
-    private String phno;
-    private boolean is_active=Boolean.TRUE;
-    private boolean is_deleted=Boolean.FALSE;
+    private String phNo;
+    private boolean isActive=Boolean.TRUE;
+    private boolean isDeleted=Boolean.FALSE;
 
     @OneToOne
     @JoinColumn(name="address_id")
