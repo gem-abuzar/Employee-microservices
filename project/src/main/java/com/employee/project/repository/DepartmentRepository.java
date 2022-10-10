@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
     @Modifying
     @Transactional
-    @Query(value = "update department set Deleted = true,Active = false where deptid = :deptid",nativeQuery = true)
-    public void DeleteDepartment(@Param("deptid") Long dept_id);
+    @Query(value = "update department set Deleted = true,Active = false where deptId = :deptId",nativeQuery = true)
+    public void DeleteDepartment(@Param("deptId") Long dept_id);
 }

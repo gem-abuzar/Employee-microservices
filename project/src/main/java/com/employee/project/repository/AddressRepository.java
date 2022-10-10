@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
 public interface AddressRepository extends JpaRepository <Address, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "update address set Deleted = true,Active = false where address_id = :address_id",nativeQuery = true)
-    public void DeleteAddress(@Param("address_id") Integer address_id);
+    @Query(value = "update address set Deleted = true,Active = false where addressId = :addressId",nativeQuery = true)
+    public void DeleteAddress(@Param("addressId") Integer address_id);
 }
