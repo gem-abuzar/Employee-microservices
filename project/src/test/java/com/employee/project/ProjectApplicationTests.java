@@ -44,7 +44,7 @@ class ProjectApplicationTests {
 	public void test_getallemployees() throws ResourceNotFoundException
 	{
 		List<Employee> myemployees= new ArrayList<Employee>();
-		myemployees.add(new Employee(1,"ali","tester","9999",true,false,null,null));
+		myemployees.add(new Employee(1,"ali","backend","9999",true,false,null,null));
 		myemployees.add(new Employee(2,"rohan","tester","8888",true,false,null,null));
 
 		when(employeeRepository.findAll()).thenReturn(myemployees);
@@ -53,7 +53,7 @@ class ProjectApplicationTests {
 	@Test
 	public void test_getalldepartment() throws ResourceNotFoundException
 	{
-		List<Department> mydepartment=new ArrayList<Department>();
+		List<Department> mydepartment= new ArrayList<Department>();
 		mydepartment.add(new Department(10,"java","app",null,2,null,3,true,false,null));
 		mydepartment.add(new Department(20,"python","app",null,3,null,3,true,false,null));
 		when(departmentRepository.findAll()).thenReturn(mydepartment);
@@ -140,10 +140,10 @@ class ProjectApplicationTests {
 	public void test_updatedepartment() throws ResourceNotFoundException
 	{
 		Department department=new Department(10,"java","app",null,2,null,3,true,false,null);
-		department.setDept_name("EX");
+		department.setDeptName("EX");
 		when(departmentRepository.save(department)).thenReturn(department);
 		departmentService.saveDepartment(department);
-		assertThat(department.getDept_name()).isNotNull();
+		assertThat(department.getDeptName()).isNotNull();
 
 	}
 

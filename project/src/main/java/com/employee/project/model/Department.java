@@ -2,9 +2,7 @@ package com.employee.project.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -16,7 +14,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Where(clause = "is_deleted=false")
 @Table(name="department")

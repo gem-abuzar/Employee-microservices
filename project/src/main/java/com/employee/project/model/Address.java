@@ -1,8 +1,6 @@
 package com.employee.project.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -11,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Where(clause = "is_deleted=false")
 @Table(name="address")
