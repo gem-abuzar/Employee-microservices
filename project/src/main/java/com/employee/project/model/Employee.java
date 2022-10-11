@@ -31,11 +31,11 @@ public class Employee {
     private boolean isDeleted=Boolean.FALSE;
 
     @OneToOne
-    @JoinColumn(name="address_id")
+    @JoinColumn(name="addressId")
     private Address address;
     @ManyToOne(
     )
-    @JoinColumn(name = "dept_id")
+    @JoinColumn(name = "deptId")
     private Department department;
 
 

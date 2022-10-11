@@ -4,6 +4,7 @@ package com.employee.project;
 import com.employee.project.controller.EmployeeController;
 import com.employee.project.exception.ResourceNotFoundException;
 
+import com.employee.project.model.Department;
 import com.employee.project.model.Employee;
 import com.employee.project.service.employeeservice;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -114,6 +115,19 @@ public class EmployeeControllerTest {
                 .andDo(print());
 
     }
+    @Test
+    public void testCreateEmployeeBadRequest() throws Exception {
+        long Id = 100;
+        Employee employee = new Employee(1, "ali", "tester", "9999", true, false, null, null);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBody = mapper.writeValueAsString(employee);
+
+        this.mockMvc.perform(post("/employee/{id}",Id)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isMethodNotAllowed())
+                .andDo(print());
+    }
 
     @Test
     public void testUpdateEmployee() throws Exception {
@@ -129,6 +143,14 @@ public class EmployeeControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+    @Test
+    public void testUpdateEmployeeBadRequest() throws Exception {
+        long Id=100;
+
+        this.mockMvc.perform(put("/employee/{Id}", Id))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
 
     @Test
     public void testDeleteEmployee() throws Exception {
@@ -136,6 +158,17 @@ public class EmployeeControllerTest {
         employeeService.deleteEmployee(id);
         this.mockMvc.perform(delete("/employee/{id}",1))
                 .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+    @Test
+    public void testDeleteEmployeeNotFound() throws Exception {
+        long Id = 1;
+        when(employeeService.deleteEmployee(Id))
+                .thenThrow(new ResourceNotFoundException("NO_CONTENT"));
+
+        this.mockMvc.perform(delete("/employee/{Id}",1))
+                .andExpect(status().isNotFound())
                 .andDo(print());
 
     }

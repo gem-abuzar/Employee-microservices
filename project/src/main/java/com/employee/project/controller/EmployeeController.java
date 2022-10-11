@@ -54,10 +54,18 @@ public class EmployeeController {
 
     @PostMapping("/employee/create")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        log.info("created");
+        try
+        { log.info("created");
         Employee emp = employeeService.createEmployee(employee);
         return new ResponseEntity<>(emp,HttpStatus.CREATED);
     }
+        catch (ResourceNotFoundException e)
+        {
+            log.error("data not found");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        }
 
     /**
      *
