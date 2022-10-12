@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -81,7 +80,7 @@ public class AddressControllerTest {
                 .andDo(print());
     }
     @Test
-    void getEmployeeByIdResourceNotFound() throws Exception {
+    void getAddressByIdResourceNotFound() throws Exception {
         Integer eid = 1;
 
         when(this.addressService.findAddressById(eid)).thenThrow(ResourceNotFoundException.class);
@@ -99,6 +98,53 @@ public class AddressControllerTest {
                         .content(jsonBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
+                .andDo(print());
+
+    }
+    @Test
+    public void testCreateAddressBadRequest() throws Exception {
+        Address adds = new Address(30, "ghantaghar", "mzn", "251201", true, false);
+        Integer Id = 100;
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBody = mapper.writeValueAsString(adds);
+
+        this.mockMvc.perform(post("/addresses/{id}",Id)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+    @Test
+    public void testUpdateAddress() throws Exception {
+        Address adds = new Address(30, "ghantaghar", "mzn", "251201", true, false);
+        Integer id = 1;
+        when(addressService.updateAddress(adds)).thenReturn(adds);
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonBody = mapper.writeValueAsString(adds);
+
+        this.mockMvc.perform(put("/address/{id}", id)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+    @Test
+    public void testDeleteAddress() throws Exception {
+        Integer id = 1;
+        addressService.deleteAddress(id);
+        this.mockMvc.perform(delete("/address/{id}",1))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+    @Test
+    public void testDeleteAddressNotFound() throws Exception {
+        Integer Id = 32;
+        when(addressService.deleteAddress(Id))
+                .thenReturn(true);
+
+        this.mockMvc.perform(delete("/addresses/{Id}",Id))
+                .andExpect(status().isNotFound())
                 .andDo(print());
 
     }

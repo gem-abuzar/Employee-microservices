@@ -52,9 +52,15 @@ public class AddressController {
      */
     @PostMapping("/address/create")
     public ResponseEntity< Address> createAddress(@RequestBody Address address) {
-        log.info("created");
-        Address add= addressService.saveAddress(address);
-        return new ResponseEntity<>(add,HttpStatus.CREATED);
+        try {
+            log.info("created");
+            Address add = addressService.saveAddress(address);
+            return new ResponseEntity<>(add, HttpStatus.CREATED);
+        } catch (ResourceNotFoundException e) {
+            log.error("data not found");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }
     }
 
 
